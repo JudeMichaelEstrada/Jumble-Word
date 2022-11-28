@@ -1,0 +1,53 @@
+import random
+
+# create a sequence of words to choose from
+WORDS = ("python", "jumble", "easy", "difficult", "answer", "xylophone")
+lives = 3
+
+print(
+    """
+               Welcome to Word Jumble!
+
+       Unscramble the letters to make a word.
+    (Press the enter key at the prompt to quit.)
+    """
+)
+
+play = input("Do you want to play? (yes or no) ")
+while play == "yes":
+    # pick one word randomly from the sequence
+    word = random.choice(WORDS)
+    # create a variable to use later to see if the guess is correct
+    correct = word
+
+    # create a jumbled version of the word
+    jumble = ""
+    while word:
+        position = random.randrange(len(word))
+        jumble += word[position]
+        word = word[:position] + word[(position + 1):]
+
+    print("The jumble is:", jumble)
+    guess = input("\nYour guess: ")
+    while guess != correct and guess != "":
+        print("Sorry, that's not it.")
+
+        if guess != "":
+            print("You have guessed incorrect, you have " + str(lives), "lives left haha")
+            guess = input("Your guess: ")
+            lives -= 1
+
+        if lives == 0:
+            print("GAME OVER! YOU HAVE NO LIVES LEFT")
+            play = input("Do you want to play again? (yes or no) ")
+            break
+
+    if guess == correct:
+        print("Wow congratuations idiot, you won!")
+        print("That's it!  You guessed it!\n")
+        print("Your lives is: " + str(lives))
+        play = input("Do you want to play again? (yes or no)")
+
+print("Thanks for playing.")
+
+input("\n\nPress the enter key to exit.")
